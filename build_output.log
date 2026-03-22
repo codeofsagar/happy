@@ -1,0 +1,35 @@
+
+> my-app@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./app/components/Hero.tsx:180:8
+Parsing ecmascript source code failed
+  178 |           </Link>
+  179 |         </div>
+> 180 |       </div>
+      |        ^^^^^
+  181 |
+  182 |       <section className={`${styles.section} ${styles.hero}`} ref={heroContentRef}>
+  183 |         <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tight drop-shadow-2xl pointer-events-auto">
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./app/components/Hero.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/Hero.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+
+    at <unknown> (./app/components/Hero.tsx:180:8)

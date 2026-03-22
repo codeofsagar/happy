@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4ade80;
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-sans);
+}
+
+:root {
+  --background: #050505;
+  --foreground: #fafafa;
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+/* Add this to your src/app/globals.css */
+
+.sticky-cards-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.sticky-cards-wrapper .card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  transform-origin: center bottom;
+  will-change: transform;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sticky-cards-wrapper .card .col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sticky-cards-wrapper .card .col:nth-child(1) {
+  justify-content: center;
+}
+
+.sticky-cards-wrapper .card .col:nth-child(2) {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.sticky-cards-wrapper .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1000px) {
+  .sticky-cards-wrapper .card {
+    width: calc(100% - 3rem);
+    height: 80%;
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  
+  .sticky-cards-wrapper .card .col {
+    width: 100%;
+  }
+}

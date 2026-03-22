@@ -1,0 +1,206 @@
+.h1 {
+  text-transform: uppercase;
+  font-size: clamp(3rem, 5vw, 7rem);
+  font-weight: 900;
+  line-height: 0.8;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: #fafafa;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 0.9;
+  text-shadow: none;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
+.navbarBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+  background-color: #f8f9fa;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* VIDEO CONTAINER — large, NO rounded corners */
+.navbarBackground {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 80vh;
+  will-change: width, height;
+  background-color: #000;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* BLACK BAR at bottom of video — contains marquee */
+.videoBottomBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 5;
+}
+
+/* MARQUEE inside the black bar */
+.marqueeTrack {
+  display: flex;
+  animation: scrollMarquee 25s linear infinite;
+  white-space: nowrap;
+}
+
+.marqueeItem {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 0 2.5rem;
+  line-height: 1;
+}
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* STATIC NAV LINKS — split left/right to leave center gap for logo */
+.staticNavLinks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 2.5rem;
+  pointer-events: auto;
+  z-index: 200;
+  mix-blend-mode: difference;
+}
+
+.navLinksLeft,
+.navLinksRight {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.navLinksLeft {
+  margin-right: auto;
+  padding-left: 1rem;
+}
+
+.navLinksRight {
+  margin-left: auto;
+  padding-right: 1rem;
+}
+
+/* Center spacer to keep logo area clear */
+.navCenterSpacer {
+  width: 140px;
+  flex-shrink: 0;
+}
+
+/* LOGO — starts at CENTER of video, animates to top center on scroll */
+.navbarLogo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  padding: 2.5rem;
+  pointer-events: auto;
+  z-index: 200;
+}
+
+.navbarLogoPinned {
+  top: -0.25rem !important;
+  transform: translate(-50%, 0) !important;
+}
+
+.section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.heroSpacer {
+  width: 100%;
+  height: 100svh;
+  margin-top: 100svh;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .navbarBackground {
+    width: 100%;
+    height: 100svh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .staticNavLinks {
+    display: none;
+  }
+
+  .navbarLogo,
+  .navbarLogoPinned {
+    left: 0;
+    transform: translateX(0);
+  }
+
+  .heroSpacer {
+    height: 100svh;
+    margin-top: 0;
+  }
+}
+
+.mobileHero {
+  height: 100svh;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.mobileVideoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Container for base context */
+.container {
+  position: relative;
+  height: 200svh; /* matches spacer: 100svh margin-top + 100svh height */
+}
