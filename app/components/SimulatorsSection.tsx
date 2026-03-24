@@ -202,7 +202,7 @@ export default function SimulatorsSection() {
 
                 {/* ── Image ── */}
                 <div
-                  className="sim-img-wrap w-full md:w-1/2 rounded-2xl overflow-hidden shrink-0"
+                  className="sim-img-wrap w-full md:w-1/2 rounded-2xl overflow-hidden shrink-0 relative"
                   style={{ aspectRatio: "3/2" }}
                 >
                   {sim.videoSrc ? (

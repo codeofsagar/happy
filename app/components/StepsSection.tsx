@@ -33,7 +33,9 @@ export default function HowItWorks() {
       const { ScrollTrigger } = window as any;
       gsap.registerPlugin(ScrollTrigger);
 
-      // Heading — fade up
+      let mm = gsap.matchMedia();
+      mm.add("(min-width: 768px)", () => {
+        // Heading — fade up
       gsap.fromTo(
         ".hiw-heading",
         { opacity: 0, y: 48 },
@@ -78,6 +80,7 @@ export default function HowItWorks() {
           },
         });
       }
+      });
     };
 
     loadGSAP();
