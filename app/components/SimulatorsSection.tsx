@@ -67,7 +67,10 @@ export default function SimulatorsSection() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const rows = gsap.utils.toArray<HTMLElement>(".sim-row");
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      const rows = gsap.utils.toArray<HTMLElement>(".sim-row");
 
     rows.forEach((row) => {
       const imgWrap  = row.querySelector<HTMLElement>(".sim-img-wrap");
@@ -151,8 +154,9 @@ export default function SimulatorsSection() {
         0.8
       );
     });
+    });
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    return () => mm.revert();
   }, []);
 
   return (

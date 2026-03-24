@@ -120,8 +120,10 @@ export default function ServicesSection() {
 
   useGSAP(
     () => {
-      const cards = gsap.utils.toArray<HTMLElement>(".service-card", containerRef.current);
-      const bgImages = gsap.utils.toArray<HTMLElement>(".bg-image-layer", containerRef.current);
+      let mm = gsap.matchMedia();
+      mm.add("(min-width: 768px)", () => {
+        const cards = gsap.utils.toArray<HTMLElement>(".service-card", containerRef.current);
+        const bgImages = gsap.utils.toArray<HTMLElement>(".bg-image-layer", containerRef.current);
 
       const totalCards = cards.length;
       const segmentSize = 1 / Math.max(totalCards - 1, 1);
@@ -226,6 +228,7 @@ export default function ServicesSection() {
           });
         },
       });
+      });
     },
     { scope: containerRef }
   );
@@ -263,7 +266,7 @@ export default function ServicesSection() {
       </div>
 
       {/* ── Sticky Cards ── */}
-      <div className="sticky-cards-wrapper relative h-[100svh] overflow-hidden md:h-screen">
+      <div className="sticky-cards-wrapper relative h-auto overflow-hidden md:h-screen pb-20 md:pb-0 pt-10 md:pt-0">
 
         {/* Dynamic Image Background Layer */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden ">
@@ -307,7 +310,7 @@ export default function ServicesSection() {
           return (
             <div
               key={i}
-              className="service-card absolute left-1/2 top-1/2 z-10 w-[94%] max-w-6xl overflow-hidden rounded-[1.5rem] border border-black/8 shadow-[0_18px_80px_rgba(0,0,0,0.10)] md:w-[92%] md:rounded-[2rem]"
+              className="service-card relative md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-10 w-[94%] mx-auto mb-12 md:mb-0 max-w-6xl overflow-hidden rounded-[1.5rem] border border-black/8 shadow-[0_18px_80px_rgba(0,0,0,0.10)] md:w-[92%] md:rounded-[2rem]"
               style={{ backgroundColor: service.bgColor }}
             >
               <div className="grid min-h-[78svh] grid-cols-1 md:min-h-[70vh] lg:grid-cols-[1.02fr_0.98fr]">

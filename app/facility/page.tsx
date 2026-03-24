@@ -13,23 +13,26 @@ export default function FacilityPage() {
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const imageWraps = gsap.utils.toArray<HTMLElement>(".facility-img-wrap", containerRef.current);
-    
-    imageWraps.forEach((imgWrap) => {
-      gsap.fromTo(imgWrap,
-        { clipPath: "inset(0 100% 0 0 round 40px)", scale: 1.1 },
-        { 
-          clipPath: "inset(0 0% 0 0 round 40px)", 
-          scale: 1, 
-          duration: 1.1, 
-          ease: "expo.inOut",
-          scrollTrigger: {
-            trigger: imgWrap,
-            start: "top 85%",
-            once: true
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
+      const imageWraps = gsap.utils.toArray<HTMLElement>(".facility-img-wrap", containerRef.current);
+      
+      imageWraps.forEach((imgWrap) => {
+        gsap.fromTo(imgWrap,
+          { clipPath: "inset(0 100% 0 0 round 40px)", scale: 1.1 },
+          { 
+            clipPath: "inset(0 0% 0 0 round 40px)", 
+            scale: 1, 
+            duration: 1.1, 
+            ease: "expo.inOut",
+            scrollTrigger: {
+              trigger: imgWrap,
+              start: "top 85%",
+              once: true
+            }
           }
-        }
-      );
+        );
+      });
     });
   }, { scope: containerRef });
 
