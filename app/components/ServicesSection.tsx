@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import Link from "next/link";
+import { TransitionLink as Link } from "./pagetrans";
 import {
   MonitorPlay,
   Mic2,

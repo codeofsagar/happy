@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "../components/pagetrans";
 import TextAnimation from "../components/TextAnimation";
 
 export default function ContactPage() {

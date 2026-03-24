@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "./pagetrans";
 import { ArrowRight } from "lucide-react";
 import TextAnimation from "./TextAnimation";
 

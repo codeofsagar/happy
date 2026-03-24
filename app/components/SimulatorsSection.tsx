@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { MousePointer2 } from "lucide-react";
-import Link from "next/link";
+import { TransitionLink as Link } from "./pagetrans";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
