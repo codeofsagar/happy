@@ -309,15 +309,15 @@ export default function ServicesSection() {
           return (
             <div
               key={i}
-              className="service-card absolute left-1/2 top-1/2 z-10 w-[94%] max-w-6xl overflow-hidden rounded-[1.5rem] border border-black/8 shadow-2xl md:shadow-[0_18px_80px_rgba(0,0,0,0.10)] md:w-[92%] md:rounded-[2rem] will-change-transform"
-              style={{ backgroundColor: service.bgColor }}
+              className="service-card absolute left-1/2 top-1/2 z-10 w-[94%] max-w-6xl overflow-hidden rounded-[1.5rem] border border-black/8 shadow-md md:shadow-[0_18px_80px_rgba(0,0,0,0.10)] md:w-[92%] md:rounded-[2rem] will-change-transform"
+              style={{ backgroundColor: service.bgColor, backfaceVisibility: "hidden" }}
             >
               <div className="grid min-h-[78svh] grid-cols-1 md:min-h-[70vh] lg:grid-cols-[1.02fr_0.98fr]">
                 <div className="relative flex flex-col justify-between p-5 sm:p-7 md:p-10 lg:p-12 xl:p-14">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.07),transparent_34%)]" />
 
                   <div className="relative z-10 flex items-center justify-between gap-3">
-                    <div className={`inline-flex items-center gap-2 rounded-full border ${service.dark ? "border-white/20 bg-black/50" : "border-black/8 bg-white/70"} px-3 py-2 text-[10px] uppercase tracking-[0.22em] ${mutedTextColor} backdrop-blur-md sm:text-[11px]`}>
+                    <div className={`inline-flex items-center gap-2 rounded-full border ${service.dark ? "border-white/20 bg-black/50" : "border-black/8 bg-white/70"} px-3 py-2 text-[10px] uppercase tracking-[0.22em] ${mutedTextColor} md:backdrop-blur-md sm:text-[11px]`}>
                       <span className={iconColor}>{service.icon}</span>
                       <span className="truncate">{service.tag}</span>
                     </div>
@@ -352,7 +352,7 @@ export default function ServicesSection() {
 
                 <div className="relative h-[240px] min-h-[240px] sm:h-[290px] sm:min-h-[290px] lg:h-auto">
                   <div className="absolute inset-0 z-10 bg-gradient-to-br from-black/5 via-transparent to-black/15" />
-                  <div className="absolute left-4 top-4 z-20 rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-white backdrop-blur sm:left-5 sm:top-5">
+                  <div className="absolute left-4 top-4 z-20 rounded-full border border-white/20 bg-black/60 md:bg-black/35 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-white md:backdrop-blur sm:left-5 sm:top-5">
                     Experience
                   </div>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
