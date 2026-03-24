@@ -90,8 +90,8 @@ export default function HowItWorks() {
     >
       {/* ── BACKGROUND DECORATIONS ── */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden opacity-20">
-        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-[#B5AAFF] rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-[#C8FF6A] rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-green-500 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-black rounded-full blur-[120px]"></div>
       </div>
 
       <div className="max-w-9xl mx-auto relative z-10">
@@ -99,17 +99,17 @@ export default function HowItWorks() {
         {/* ── HEADING ── */}
         <div className="hiw-heading text-center mb-16 relative">
           <span
-            className="inline-block mb-4 px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-neutral-900 shadow-sm"
-            style={{ backgroundColor: "#CCFF00" }}
+            className="inline-block mb-4 px-5 py-1.5 rounded-full text-[10px] uppercase tracking-widest text-[#000] shadow-sm"
+            style={{ backgroundColor: "#22c55e" }}
           >
             Our Simple Process
           </span>
           <TextAnimation>
             <h2
-              className="text-5xl sm:text-7xl font-black tracking-tighter text-neutral-950 leading-none max-w-4xl mx-auto"
+              className="text-5xl sm:text-7xl tracking-tighter text-neutral-950 leading-none max-w-4xl mx-auto"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              Get into the bay in <span className="text-neutral-500 opacity-60">3 simple steps</span>
+              Get into the bay in <span className="text-green-500">3 simple steps</span>
             </h2>
           </TextAnimation>
         </div>
@@ -127,10 +127,10 @@ export default function HowItWorks() {
           {/* ─── CARD 1 — Purple ─── */}
           <div
             className="hiw-card-1 rounded-4xl p-8 md:p-10 flex flex-col gap-8 transition-transform duration-500 hover:scale-[1.02] cursor-default group"
-            style={{ backgroundColor: "#B5AAFF" }}
+            style={{ backgroundColor: "#000000" }}
           >
             <div className="flex justify-between items-start">
-               <span className="w-fit rounded-full bg-white/40 backdrop-blur-sm border border-white/30 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-neutral-900">
+               <span className="w-fit rounded-full bg-white/40 backdrop-blur-sm border border-white/30 px-4 py-1.5 text-[10px] uppercase tracking-widest text-neutral-900">
                  Step 1
                </span>
                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
@@ -141,17 +141,16 @@ export default function HowItWorks() {
             <div>
               <TextAnimation>
                 <h3
-                  className="text-3xl md:text-4xl font-black text-white leading-[1.1] mb-4"
+                  className="text-3xl md:text-4xl text-white leading-[1.1] mb-4"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  Book your bay online
+                  Book your bay
                 </h3>
+                <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-sm">
+                  Reserve your time online. Select your duration, add guests, and
+                  even pre-order beverages for your session.
+                </p>
               </TextAnimation>
-              <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-sm">
-                Choose your preferred time slot and bay in seconds. Our booking
-                engine guarantees your spot instantly so you can focus on your
-                swing.
-              </p>
             </div>
 
             {/* Profile mockup card with Glassmorphism */}
@@ -160,7 +159,7 @@ export default function HowItWorks() {
               style={{ border: "1px solid rgba(255,255,255,0.5)" }}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-black tracking-widest text-neutral-400">
+                <span className="text-[10px] uppercase tracking-widest text-neutral-400">
                   Instant Confirmation
                 </span>
                 <div className="flex gap-1.5">
@@ -174,10 +173,10 @@ export default function HowItWorks() {
               </div>
 
               <div className="flex flex-col gap-1">
-                <p className="text-xl font-black text-neutral-900 tracking-tight">
+                <p className="text-xl text-neutral-900 tracking-tight">
                   @happyguilmore
                 </p>
-                <a className="text-xs text-sky-500 font-bold uppercase tracking-wider">
+                <a className="text-xs text-sky-500 uppercase tracking-wider">
                   Booking Confirmed ✓
                 </a>
               </div>
@@ -196,28 +195,28 @@ export default function HowItWorks() {
                 </div>
                 <div className="flex gap-6">
                   <div className="flex flex-col">
-                    <span className="text-2xl font-black text-neutral-900">50</span>
-                    <span className="text-[9px] font-bold text-neutral-400 uppercase">Bookings</span>
+                    <span className="text-2xl text-neutral-900">50</span>
+                    <span className="text-[9px] text-neutral-400 uppercase">Bookings</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-2xl font-black text-neutral-900">1.2k</span>
-                    <span className="text-[9px] font-bold text-neutral-400 uppercase">Points</span>
+                    <span className="text-2xl text-neutral-900">1.2k</span>
+                    <span className="text-[9px] text-neutral-400 uppercase">Points</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* ─── CARD 2 — Yellow ─── */}
+          {/* ─── CARD 2 — Gray ─── */}
           <div
             className="hiw-card-2 rounded-4xl p-8 md:p-10 flex flex-col gap-8 transition-transform duration-500 hover:scale-[1.02] cursor-default group"
-            style={{ backgroundColor: "#FFD572" }}
+            style={{ backgroundColor: "#c9c9c9" }}
           >
             <div className="flex justify-between items-start">
-               <span className="w-fit rounded-full bg-black/10 backdrop-blur-sm border border-black/5 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-neutral-900">
+               <span className="w-fit rounded-full bg-black/5 backdrop-blur-sm border border-black/10 px-4 py-1.5 text-[10px] uppercase tracking-widest text-black">
                  Step 2
                </span>
-               <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center text-neutral-900">
+               <div className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-black">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                </div>
             </div>
@@ -225,81 +224,82 @@ export default function HowItWorks() {
             <div>
               <TextAnimation>
                 <h3
-                  className="text-3xl md:text-4xl font-black text-neutral-950 leading-[1.1] mb-4"
+                  className="text-3xl md:text-4xl text-black leading-[1.1] mb-4"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   Secure access code
                 </h3>
+                <p className="text-sm md:text-base text-black/70 leading-relaxed max-w-sm">
+                  A one-time code is sent straight to your email or phone. No
+                  front desk check-ins, no physical keys required.
+                </p>
               </TextAnimation>
-              <p className="text-sm md:text-base text-neutral-800/80 leading-relaxed max-w-sm">
-                A one-time code is sent straight to your email or phone. No
-                front desk check-ins, no physical keys required.
-              </p>
             </div>
 
             {/* Secure Code Mockup */}
-            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 flex flex-col gap-6 shadow-xl border border-white/50 group-hover:-translate-y-2 transition-transform duration-700">
+            <div className="bg-white/40 backdrop-blur-xl rounded-2xl p-6 flex flex-col gap-6 shadow-xl border border-black/5 group-hover:-translate-y-2 transition-transform duration-700">
               <div className="flex items-center justify-between">
-                <h4 className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">
+                <h4 className="text-[10px] text-black/50 uppercase tracking-widest">
                   Access Granted
                 </h4>
-                <span className="px-2 py-0.5 bg-green-100 text-green-600 rounded-md text-[9px] font-black uppercase">Active</span>
+                <span className="px-2 py-0.5 bg-green-500/20 text-green-700 rounded-md text-[9px] uppercase">Active</span>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-neutral-50/50 rounded-xl p-3 border border-neutral-100 flex flex-col gap-1">
-                  <span className="text-[8px] font-black text-neutral-400 uppercase tracking-tighter">Bay Number</span>
-                  <p className="text-lg font-black text-neutral-900">Bay 03</p>
+                <div className="bg-white/50 rounded-xl p-3 border border-black/5 flex flex-col gap-1">
+                  <span className="text-[8px] text-black/40 uppercase tracking-tighter">Bay Number</span>
+                  <p className="text-lg text-black">Bay 03</p>
                 </div>
-                <div className="bg-neutral-50/50 rounded-xl p-3 border border-neutral-100 flex flex-col gap-1">
-                  <span className="text-[8px] font-black text-neutral-400 uppercase tracking-tighter">Valid Until</span>
-                  <p className="text-lg font-black text-neutral-900">12:00 PM</p>
+                <div className="bg-white/50 rounded-xl p-3 border border-black/5 flex flex-col gap-1">
+                  <span className="text-[8px] text-black/40 uppercase tracking-tighter">Valid Until</span>
+                  <p className="text-lg text-black">12:00 PM</p>
                 </div>
               </div>
 
-              <div className="bg-neutral-900 rounded-xl p-4 flex flex-col items-center justify-center gap-2 overflow-hidden relative group/code">
+              <div className="bg-white rounded-xl p-4 flex flex-col items-center justify-center gap-2 overflow-hidden relative group/code shadow-sm border border-black/5">
                 {/* Shimmer effect */}
-                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/code:translate-x-full transition-transform duration-1000"></div>
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover/code:translate-x-full transition-transform duration-1000"></div>
                 
-                <span className="text-[8px] font-bold text-neutral-500 uppercase tracking-widest relative z-10">Your Entry Code</span>
-                <p className="text-3xl font-black text-white tracking-[0.4em] relative z-10">7249</p>
+                <span className="text-[8px] text-black/40 uppercase tracking-widest relative z-10">Your Entry Code</span>
+                <p className="text-3xl text-black tracking-[0.4em] relative z-10">7249</p>
               </div>
             </div>
           </div>
 
           {/* ─── CARD 3 — Green, full width ─── */}
           <div
-            className="hiw-card-3 rounded-4xl p-8 md:p-12 flex flex-col md:flex-row gap-12 md:col-span-2 relative overflow-hidden group/swing transition-all duration-700 hover:shadow-2xl hover:shadow-[#C8FF6A]/20"
-            style={{ backgroundColor: "#C8FF6A" }}
+            className="hiw-card-3 rounded-4xl p-8 md:p-12 flex flex-col md:flex-row gap-12 md:col-span-2 relative overflow-hidden group/swing transition-all duration-700 hover:shadow-2xl hover:shadow-[#22c55e]/20"
+            style={{ backgroundColor: "#22c55e" }}
           >
             {/* Background Pattern */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-black/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl group-hover/swing:bg-black/10 transition-colors duration-700"></div>
 
             {/* Left — text */}
             <div className="flex flex-col gap-6 md:w-[45%] justify-center relative z-10">
-              <span className="w-fit rounded-full bg-black/10 backdrop-blur-sm border border-black/5 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-neutral-900">
+              <span className="w-fit rounded-full bg-black/10 backdrop-blur-sm border border-black/5 px-4 py-1.5 text-[10px] uppercase tracking-widest text-neutral-900">
                 Step 3
               </span>
+              <div>
               <TextAnimation>
                 <h3
-                  className="text-4xl md:text-5xl lg:text-6xl font-black text-neutral-950 leading-[0.95]"
+                  className="text-4xl md:text-5xl lg:text-6xl text-neutral-950 leading-[0.95]"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  Arrive and swing away
+                  Walk in and play
                 </h3>
+                <p className="text-base text-neutral-800/80 leading-relaxed max-w-sm mb-6 pb-2">
+                  Enter your code at the door. Your bay is powered on and ready.
+                  Enjoy 1,000+ world-class courses, premium launch monitors, driving
+                  ranges, and mini golf — yours for the session.
+                </p>
               </TextAnimation>
-              <p className="text-base text-neutral-800/80 leading-relaxed max-w-sm">
-                Arrive, enter your code at the bay, grab your clubs, and start
-                playing immediately. Over 1,000 courses, virtual driving
-                ranges, and mini golf — yours for the session.
-              </p>
+              </div>
               <Link
-                href="https://happygilmoregolflounge.cojilio.com"
-                target="_blank"
-                className="w-fit inline-flex items-center gap-3 bg-neutral-950 text-white px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest hover:bg-neutral-800 transition-all hover:gap-5 shadow-lg"
+                href="/rates"
+                className="w-fit inline-flex items-center gap-3 bg-neutral-950 text-white px-8 py-4 rounded-full text-xs uppercase tracking-widest hover:bg-neutral-800 transition-all hover:gap-5 shadow-lg"
               >
                 Book your bay
-                <ArrowRight className="w-4 h-4 text-primary" />
+                <ArrowRight className="w-4 h-4 text-green-500" />
               </Link>
             </div>
 
@@ -321,7 +321,7 @@ export default function HowItWorks() {
                   {/* URL bar at bottom */}
                   <div className="absolute bottom-0 left-0 right-0 flex items-center gap-2 bg-white/95 backdrop-blur-md px-4 py-3 border-t border-black/5">
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500 shrink-0 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                    <span className="text-[10px] uppercase font-black text-neutral-800 tracking-tight">
+                    <span className="text-[10px] uppercase text-neutral-800 tracking-tight">
                       @happyguilmore
                     </span>
                     <div className="ml-auto flex gap-1">
@@ -332,43 +332,34 @@ export default function HowItWorks() {
                 </div>
               </div>
 
-              {/* Snapchat-purple card — bottom centre */}
+              {/* Image card -> Changed to Black card border */}
               <div
-                className="absolute bottom-4 left-32 md:left-48 w-36 h-40 rounded-3xl flex flex-col items-center justify-center gap-4 shadow-2xl transition-transform duration-1000 group-hover/swing:translate-y-4 group-hover/swing:rotate-3"
-                style={{ backgroundColor: "#C4B5FD", zIndex: 3, border: "4px solid white" }}
+                className="absolute bottom-4 left-32 md:left-48 w-36 h-40 rounded-3xl overflow-hidden shadow-2xl border-[4px] border-white transition-transform duration-1000 group-hover/swing:translate-y-4 group-hover/swing:rotate-3"
+                style={{ zIndex: 3 }}
               >
-                <div className="w-12 h-12 rounded-full bg-white/30 flex items-center justify-center">
-                  <svg viewBox="0 0 60 60" className="w-8 h-8" fill="none">
-                    <path
-                      d="M30 8C20 8 14 15 14 24c0 5 1.5 9 4 12l-3 4h6c2 2 5 3 9 3s7-1 9-3h6l-3-4c2.5-3 4-7 4-12C46 15 40 8 30 8Z"
-                      fill="white"
-                    />
-                  </svg>
-                </div>
-                <div className="w-full flex flex-col gap-2 px-6">
-                  <div className="h-2 w-full rounded-full bg-white/40" />
-                  <div className="h-2 w-2/3 rounded-full bg-white/20" />
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/images/foresight-lifestyle.jpg" alt="Player" className="w-full h-full object-cover" />
               </div>
 
-              {/* Dark Branding card — right */}
+              {/* Calibrating card with video — right */}
               <div
                 className="absolute top-8 right-0 w-36 md:w-48 h-52 md:h-64 rounded-3xl overflow-hidden shadow-2xl transition-transform duration-700 group-hover/swing:translate-x-4 group-hover/swing:rotate-2"
                 style={{ zIndex: 2 }}
               >
-                <div className="w-full h-full relative bg-neutral-950 flex flex-col">
-                   <div className="flex-1 p-6 flex flex-col items-center justify-center gap-4">
-                      <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center">
-                         <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
-                      </div>
-                      <span className="text-[10px] font-black uppercase text-primary tracking-widest text-center">Calibrating Experience</span>
+                <div className="w-full h-full relative flex flex-col">
+                   <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
+                     <source src="/assets/videos/dimple-optix.mp4" type="video/mp4" />
+                   </video>
+                   <div className="absolute inset-0 bg-black/50 z-0"></div>
+                   
+                   <div className="relative z-10 flex-1 p-6 flex flex-col items-center justify-center gap-4">
                    </div>
-                   <div className="h-12 bg-white/5 border-t border-white/10 px-4 flex items-center justify-between">
+                   <div className="relative z-10 h-12 bg-black/60 backdrop-blur-md border-t border-white/10 px-4 flex items-center justify-between">
                       <div className="flex gap-1">
-                         <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                         <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
                          <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
                       </div>
-                      <span className="text-[8px] font-bold text-white/40 uppercase">V-2.4</span>
+                      <span className="text-[8px] text-white/80 uppercase">V-2.4</span>
                    </div>
                 </div>
               </div>

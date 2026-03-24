@@ -1,99 +1,50 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import TextAnimation from "./TextAnimation";
+
 export default function Footer() {
+  const pathname = usePathname();
+
+  // If in a sub-route where we don't want massive branding or a specific footer, 
+  // you could conditionally render. We will show the global footer everywhere.
+  
   return (
-    <footer className="bg-[#050505] border-t border-white/10 pt-16 pb-8" id="footer">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">Ready to tee off?</h2>
-          <p className="text-gray-400 text-lg">Book your session today and experience premium indoor golf.</p>
-        </div>
+    <footer className="relative w-full bg-black text-white overflow-hidden pt-12 pb-8" id="footer">
+        <div className="relative z-10 w-full flex flex-col items-center justify-center px-4 md:px-12 pb-4">
+            {/* --- GLOBAL FOOTER --- */}
+            <div className="w-full flex flex-col pt-12 border-t border-white/10 max-w-7xl">
+                {/* Upper Horizon Zone */}
+                <div className="flex flex-col md:flex-row justify-between items-start lg:items-center gap-10 lg:gap-0 pb-12 md:pb-24 px-4 md:px-0">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-white text-3xl font-normal tracking-tight">Happy Guilmore Golf</span>
+                        <span className="text-white text-sm tracking-widest uppercase">Premium Indoor Simulators</span>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-8 md:gap-16 text-xs md:text-sm tracking-[0.15em] uppercase text-white/80">
+                        <Link href="/" className="hover:text-green-400 focus:text-green-400 transition-colors">Home</Link>
+                        <Link href="/rates" className="hover:text-green-400 focus:text-green-400 transition-colors">Rates & Memberships</Link>
+                        <Link href="/facility" className="hover:text-green-400 focus:text-green-400 transition-colors">Our Facility</Link>
+                        <Link href="/events" className="hover:text-green-400 focus:text-green-400 transition-colors">Events</Link>
+                        <Link href="/contact" className="hover:text-green-400 focus:text-green-400 transition-colors">Contact</Link>
+                    </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-          {/* Contact Details */}
-          <div>
-            <h3 className="text-primary text-xl font-bold mb-6">Contact Us</h3>
-            <div className="space-y-4 text-gray-300">
-              <p className="flex flex-col">
-                <span className="text-white font-medium mb-1">Address</span>
-                123 Golf Avenue, Simulator City, SC 12345
-              </p>
-              <p className="flex flex-col">
-                <span className="text-white font-medium mb-1">Email</span>
-                <a href="mailto:info@happyguilmore.golf" className="hover:text-primary transition-colors">
-                  info@happyguilmore.golf
-                </a>
-              </p>
-              <p className="flex flex-col">
-                <span className="text-white font-medium mb-1">Phone number</span>
-                <a href="tel:555-0198" className="hover:text-primary transition-colors">
-                  (555) 123-0198
-                </a>
-              </p>
+                    
+                </div>
+
+                {/* Massive Typography Bottom */}
+                <div className="w-full overflow-hidden flex items-center justify-center select-none pt-4 pb-2 border-t border-white/10">
+                    <TextAnimation>
+                      <h1 className="text-[12vw] sm:text-[14vw] leading-[0.85] tracking-tighter text-[#22C55E] font-normal text-center w-full" style={{ fontFamily: "'Inter', sans-serif" }}>
+                          HAPPY GUILMORE
+                      </h1>
+                    </TextAnimation>
+                </div>
+
+               
             </div>
-            
-            <div className="mt-8">
-              <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                <span className="text-primary">Happy</span> Guilmore Golf
-              </h1>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="bg-white/5 p-8 rounded-2xl border border-white/10">
-            <h3 className="text-xl font-bold mb-6">Send us a message</h3>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder:text-gray-600"
-                  placeholder="John"
-                />
-              </div>
-              <div>
-                <label htmlFor="contact" className="block text-sm font-medium text-gray-400 mb-2">
-                  Email or Phone
-                </label>
-                <input
-                  type="text"
-                  id="contact"
-                  className="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder:text-gray-600"
-                  placeholder="john@example.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder:text-gray-600 resize-none"
-                  placeholder="How can we help you?"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-black font-bold py-3 px-6 rounded-lg transition-all"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
         </div>
-
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 gap-4">
-          <p>&copy; {new Date().getFullYear()} Happy Guilmore Golf. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-          </div>
-        </div>
-      </div>
     </footer>
   );
 }

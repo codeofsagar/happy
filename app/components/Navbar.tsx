@@ -37,22 +37,19 @@ export default function Navbar() {
     { name: "Events", href: "/events" },
   ];
 
-  // Only hide on desktop home page
-  if (pathname === "/" && !isMobile) return null;
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
+        isMobileMenuOpen ? "bg-black" : "mix-blend-difference"
+      } ${
         isScrolled
-          ? "bg-black/40 backdrop-blur-md py-4 shadow-lg opacity-100"
-          : pathname === "/"
-          ? (isMobile ? "bg-black/20 backdrop-blur-sm py-4 opacity-100" : "opacity-0 pointer-events-none py-6")
-          : "bg-transparent py-6 opacity-100"
+          ? " py-4 opacity-100"
+          : " py-6 opacity-100"
       }`}
     >
       <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold tracking-tight text-white flex items-center gap-2" style={{ mixBlendMode: 'difference' }}>
-          <span className="text-primary">Happy</span> Guilmore Golf
+        <Link href="/" className="text-2xl tracking-tight text-white flex items-center gap-2">
+          <span>Happy</span> Guilmore Golf
         </Link>
 
         {/* Desktop Nav */}
@@ -61,17 +58,16 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                pathname === link.href ? "text-primary" : "text-white"
+              className={`text-sm transition-colors ${
+                pathname === link.href ? "text-white underline underline-offset-4" : "text-white/80 hover:text-white"
               }`}
-              style={{ mixBlendMode: 'difference' }}
             >
               {link.name}
             </Link>
           ))}
           <Link
-            href="#"
-            className="bg-primary hover:bg-primary/90 text-black px-6 py-2.5 rounded-full font-semibold transition-all hover:scale-105 active:scale-95"
+            href="/rates"
+            className="bg-white hover:bg-neutral-200 text-black px-6 py-2.5 rounded-full transition-all hover:scale-105 active:scale-95"
           >
             Book Now
           </Link>
@@ -79,7 +75,7 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden text-white hover:text-primary transition-colors"
+          className="md:hidden text-white hover:text-neutral-300 transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -94,17 +90,17 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className={`text-lg font-medium py-2 border-b border-white/5 ${
-                pathname === link.href ? "text-primary" : "text-gray-300"
+              className={`text-lg py-2 border-b border-white/5 ${
+                pathname === link.href ? "text-white" : "text-neutral-400"
               }`}
             >
               {link.name}
             </Link>
           ))}
           <Link
-            href="#"
+            href="/rates"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="bg-primary text-black px-6 py-3 rounded-full font-semibold text-center mt-4"
+            className="bg-white hover:bg-neutral-200 text-black px-6 py-3 rounded-full text-center mt-4 transition-colors"
           >
             Book Now
           </Link>

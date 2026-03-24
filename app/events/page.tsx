@@ -1,35 +1,80 @@
 "use client";
 
-export default function EventsPage() {
-  return (
-    <div className="pt-32 pb-24 w-full min-h-[85vh] flex flex-col items-center justify-center text-center relative overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+import React, { useState } from "react";
+import TextAnimation from "../components/TextAnimation";
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10">
-        <h1 className="text-5xl md:text-7xl font-black mb-6">Upcoming <span className="text-primary">Events</span></h1>
-        <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-16">
-          We are currently planning our upcoming tournaments, corporate social leagues, and special events. Get ready for some serious competition and fun.
-        </p>
-        
-        <div className="bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-12 max-w-2xl mx-auto shadow-2xl relative overflow-hidden">
-           {/* Decorative top border */}
-           <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-primary to-transparent"></div>
-           
-           <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary mx-auto mb-8 opacity-80 animate-pulse"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
-           
-           <h2 className="text-3xl font-bold mb-4">Stay Tuned!</h2>
-           <p className="text-gray-400 mb-10 text-lg">This page is currently under construction. Check back soon for exciting event updates, membership tournaments, and registration details.</p>
-           
-           <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
-             <input type="email" placeholder="Enter your email" className="bg-black border border-white/20 rounded-full px-6 py-4 grow focus:outline-none focus:border-primary text-white" />
-             <button className="bg-primary hover:bg-primary/90 text-black px-8 py-4 rounded-full font-bold transition-all whitespace-nowrap">
-               Notify Me
-             </button>
-           </form>
+export default function EventsPage() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("submitting");
+    setTimeout(() => setStatus("success"), 1000);
+  };
+
+  return (
+    <div className="pt-32 pb-32 w-full bg-[#f5f5f5] text-black relative flex flex-col justify-center min-h-[90vh] overflow-hidden">
+      
+      {/* HEADER */}
+      <section className="container mx-auto px-6 lg:px-12 text-center relative z-10 mb-20">
+        <span className="inline-block mb-4 px-5 py-1.5 rounded-full text-[10px] uppercase tracking-widest text-white shadow-sm transition-all bg-black">
+          Calendar
+        </span>
+        <TextAnimation>
+          <h1 className="text-5xl md:text-7xl font-normal mb-8 tracking-tighter leading-none" style={{ fontFamily: "'Inter', sans-serif" }}>
+            Upcoming <span className="text-[#22C55E]">Events</span>
+          </h1>
+          <p className="text-lg md:text-xl text-black/60 max-w-3xl mx-auto font-normal leading-relaxed">
+            We are currently planning our upcoming tournaments, corporate social leagues, and special events. Get ready for some serious competition and fun.
+          </p>
+        </TextAnimation>
+      </section>
+
+      {/* STAY TUNED CARD */}
+      <section className="container mx-auto px-6 lg:px-12 relative z-10">
+        <div className="w-full max-w-4xl mx-auto bg-white shadow-xl overflow-hidden flex flex-col items-center justify-center p-12 md:p-20 border border-black/5 relative">
+          
+          <div className="mb-10 w-16 h-px bg-black/10"></div>
+          
+          <TextAnimation delay={0.1}>
+            <h2 className="text-4xl md:text-5xl font-normal mb-6 tracking-tight text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+              Stay Tuned
+            </h2>
+            <p className="text-black/60 mb-10 text-lg md:text-xl text-center max-w-xl mx-auto font-normal leading-relaxed">
+              Our calendar is currently under construction. Join the waitlist to receive early access to tournament registrations and member-only event details.
+            </p>
+          </TextAnimation>
+
+          {status === "success" ? (
+             <div className="flex flex-col items-center justify-center py-6 px-10 border border-green-500/20 bg-green-500/5">
+                <p className="text-green-600 uppercase tracking-widest text-xs font-normal">You're on the list</p>
+             </div>
+          ) : (
+             <form className="flex flex-col sm:flex-row gap-4 w-full max-w-lg mx-auto" onSubmit={handleSubmit}>
+                <input 
+                  type="email" 
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email" 
+                  className="bg-[#f5f5f5] border border-black/5 px-6 py-4 grow focus:outline-none focus:border-black/50 text-black text-sm transition-colors rounded-none" 
+                  disabled={status === "submitting"}
+                />
+                <button 
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="bg-black hover:bg-neutral-800 text-white px-8 py-4 text-xs uppercase tracking-widest transition-colors flex items-center justify-center min-w-[160px] rounded-none shadow-md disabled:opacity-70"
+                >
+                  {status === "submitting" ? "Joining..." : "Notify Me"}
+                </button>
+             </form>
+          )}
+
         </div>
-      </div>
+      </section>
+
     </div>
   );
 }

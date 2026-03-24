@@ -4,21 +4,18 @@ import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Flip } from "gsap/Flip";
 import Lenis from "lenis";
 import { ArrowRight, MoveUpRight } from "lucide-react";
 import styles from "./Hero.module.css";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, Flip);
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const navbarBackdropRef = useRef<HTMLDivElement>(null);
   const navbarBgRef = useRef<HTMLDivElement>(null);
-  const navbarLogoRef = useRef<HTMLDivElement>(null);
-  const navLinksRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
 
   const [isMobile, setIsMobile] = React.useState(false);
@@ -64,26 +61,14 @@ const Hero = () => {
 
       const initNavbarAnimations = () => {
         const navbarBg = navbarBgRef.current;
-        const navbarLogo = navbarLogoRef.current;
         const navbarBackdrop = navbarBackdropRef.current;
 
-        if (!navbarBg || !navbarLogo || !navbarBackdrop) return;
+        if (!navbarBg || !navbarBackdrop) return;
 
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         const initialWidth = navbarBg.offsetWidth;
         const initialHeight = navbarBg.offsetHeight;
-
-        // Logo Flip animation: starts at center of video, flips to top center
-        const state = Flip.getState(navbarLogo);
-        navbarLogo.classList.add(styles.navbarLogoPinned);
-        gsap.set(navbarLogo, { width: 250 });
-        
-        // Create the animation from centered to pinned
-        const flip = Flip.from(state, { duration: 1, ease: "none", paused: true });
-        
-        // Ensure logo starts at its original center position on load
-        flip.progress(0);
 
         // 2. Expand video to full screen on scroll
         ScrollTrigger.create({
@@ -99,9 +84,6 @@ const Hero = () => {
               width: gsap.utils.interpolate(initialWidth, viewportWidth, p),
               height: gsap.utils.interpolate(initialHeight, viewportHeight, p),
             });
-
-            // Logo flip animation
-            flip.progress(p);
           },
         });
 
@@ -143,8 +125,6 @@ const Hero = () => {
         //    just before ServicesSection arrives so there's no bleed-through
         const heroFixedEls = [
           navbarBackdropRef.current,
-          navLinksRef.current,
-          navbarLogoRef.current,
         ].filter(Boolean);
 
         gsap.to(heroFixedEls, {
@@ -166,9 +146,8 @@ const Hero = () => {
         clearTimeout(timer);
         timer = setTimeout(() => {
           ScrollTrigger.getAll().forEach((t) => t.kill());
-          const elements = [navbarBgRef.current, navbarLogoRef.current].filter(Boolean);
+          const elements = [navbarBgRef.current].filter(Boolean);
           gsap.set(elements, { clearProps: "all" });
-          navbarLogoRef.current?.classList.remove(styles.navbarLogoPinned);
           initNavbarAnimations();
         }, 250);
       };
@@ -188,8 +167,8 @@ const Hero = () => {
   }, [isMobile]);
 
   return (
-    <div className={`${styles.container} -mt-20 ${isMobile ? styles.mobileHero : ""}`} ref={containerRef}>
-      {!isMobile && (
+    <div className={`${styles.container} -mt-20`} ref={containerRef}>
+      <div className="hidden md:block">
         <div className={styles.navbarBackdrop} ref={navbarBackdropRef}>
           
           <div className="absolute inset-0 z-0 pointer-events-none">
@@ -230,9 +209,9 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      )}
+      </div>
 
-      {isMobile && (
+      <div className="md:hidden">
         <div className={styles.mobileVideoBackground}>
           <video
             autoPlay
@@ -245,21 +224,21 @@ const Hero = () => {
           </video>
           <div className="absolute inset-0 bg-white/20 pointer-events-none"></div>
         </div>
-      )}
+      </div>
 
       {/* HERO TEXT OVERLAY — ALL WHITE TEXT */}
-      <div className={`${isMobile ? "relative h-screen" : "fixed inset-0"} w-full flex flex-col justify-end pb-32 md:pb-40 z-0 pointer-events-none`} ref={heroContentRef}>
+      <div className="relative h-[100svh] md:fixed md:inset-0 md:h-auto w-full flex flex-col justify-end pb-32 md:pb-40 z-0 pointer-events-none" ref={heroContentRef}>
         
         <div className="container mx-auto px-6 md:px-12 pointer-events-auto">
           
           <div className="flex items-center gap-4 mb-4 md:mb-6">
             <span className="h-px w-12 bg-green-500"></span>
-            <span className="text-green-400 font-medium tracking-[0.25em] uppercase text-[11px] md:text-xs drop-shadow-lg">
+            <span className="text-green-500 tracking-[0.25em] uppercase text-[11px] md:text-xs drop-shadow-lg">
               Next Generation Experience
             </span>
           </div>
 
-          <h1 className="text-5xl sm:text-[6rem] md:text-[8rem] lg:text-[10rem] font-bold leading-[0.85] tracking-[-0.02em] uppercase text-white flex flex-col drop-shadow-md">
+          <h1 className="text-5xl sm:text-[6rem] md:text-[8rem] lg:text-[10rem] leading-[0.85] tracking-[-0.02em] uppercase text-white flex flex-col drop-shadow-md">
             <span className="text-white">Happy</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 md:ml-12">
               Guilmore
@@ -277,7 +256,7 @@ const Hero = () => {
                 className="group relative flex items-center justify-between gap-6 bg-white text-black px-6 py-4 rounded-lg overflow-hidden transition-all duration-500 hover:text-white"
               >
                 <div className="absolute inset-0 bg-green-600 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out z-0"></div>
-                <span className="relative z-10 text-[11px] md:text-xs font-bold uppercase tracking-[0.2em]">Book Your Bay</span>
+                <span className="relative z-10 text-[11px] md:text-xs uppercase tracking-[0.2em]">Book Your Bay</span>
                 <span className="relative z-10 p-1.5 rounded-full bg-black/5 group-hover:bg-white/20 transition-colors duration-500">
                   <ArrowRight className="w-4 h-4 group-hover:-rotate-45 transition-transform duration-500" />
                 </span>
@@ -287,8 +266,8 @@ const Hero = () => {
                 href="/facility"
                 className="group flex items-center justify-between gap-6 px-6 py-4 rounded-lg border border-white/20 bg-black text-white backdrop-blur-md transition-all duration-500 hover:bg-white/10 hover:border-white/30"
               >
-                <span className="text-[11px] md:text-xs font-bold uppercase tracking-[0.2em]">The Facility</span>
-                <MoveUpRight className="w-4 h-4 text-green-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+                <span className="text-[11px] md:text-xs uppercase tracking-[0.2em]">The Facility</span>
+                <MoveUpRight className="w-4 h-4 text-green-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
               </Link>
             </div>
           </div>
@@ -296,31 +275,9 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* STATIC NAV LINKS — stay at top always */}
-      {!isMobile && (
-        <div className={styles.staticNavLinks} ref={navLinksRef}>
-          <div className={styles.navLinksLeft}>
-            <Link href="/" className={styles.link}>Home</Link>
-            <Link href="/rates" className={styles.link}>Rates &amp; Memberships</Link>
-          </div>
-          <div className={styles.navCenterSpacer}></div>
-          <div className={styles.navLinksRight}>
-            <Link href="/facility" className={styles.link}>Our Facility</Link>
-            <Link href="/events" className={styles.link}>Events</Link>
-          </div>
-        </div>
-      )}
+      
 
-      {/* LOGO — starts at CENTER of video alongside nav links, Flip animates to top center on scroll */}
-      {!isMobile && (
-        <div className={styles.navbarLogo} ref={navbarLogoRef}>
-          <Link href="/" className="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center justify-center gap-2 w-full whitespace-nowrap">
-            <span className="text-green-500">Happy Guilmore</span>
-          </Link>
-        </div>
-      )}
-
-      <section className={isMobile ? "hidden" : styles.heroSpacer}></section>
+      <section className={`md:block hidden ${styles.heroSpacer}`}></section>
     </div>
   );
 };

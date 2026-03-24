@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en" className="dark scroll-smooth">
       <body className={`${inter.variable} font-sans antialiased text-[#fafafa] min-h-screen flex flex-col`}>
         <Navbar />
-        <main className="grow pt-20">
+        <main className="grow">
           {children}
         </main>
         <Footer />

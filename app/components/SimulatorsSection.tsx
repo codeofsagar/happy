@@ -1,17 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { MousePointer2 } from "lucide-react";
-import TextAnimation from "./TextAnimation";
-
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
 
 const simulators = [
   {
@@ -22,11 +16,14 @@ const simulators = [
     desc: "Unmatched dual-radar accuracy used by the world's best players. Experience tour-level precision in every bay.",
     features: ["Dual-radar tracking", "Ball speed & spin", "Optically enhanced", "Used by PGA pros"],
     imgSrc: "/assets/images/trackman-header.webp",
-    videoSrc: null, 
+    videoSrc: null,
     stats: [
       { label: "Precision", value: "99.9%" },
       { label: "Data Points", value: "26+" },
-    ]
+    ],
+    bg: "#000000",       // black
+    accent: "#22c55e",   // green
+    dark: true,
   },
   {
     id: "02",
@@ -40,7 +37,10 @@ const simulators = [
     stats: [
       { label: "Frame Rate", value: "3000fps" },
       { label: "Delay", value: "0ms" },
-    ]
+    ],
+    bg: "#22c55e",       // green
+    accent: "#000000",   // black
+    dark: false,
   },
   {
     id: "03",
@@ -54,186 +54,257 @@ const simulators = [
     stats: [
       { label: "Sensors", value: "Camera 4x" },
       { label: "Launch Angle", value: "±0.1°" },
-    ]
+    ],
+    bg: "#ffffff",       // white
+    accent: "#22c55e",   // green
+    dark: false,
   },
 ];
 
 export default function SimulatorsSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  
-  useGSAP(() => {
-    // gsap.matchMedia manages responsive animations easily
-    const mm = gsap.matchMedia();
+  const sectionRef = useRef<HTMLElement>(null);
 
-    // DESKTOP: Horizontal Scroll (min-width: 768px)
-    mm.add("(min-width: 768px)", () => {
-      const tween = gsap.to(trackRef.current, {
-        x: () => -(window.innerWidth * (simulators.length - 1)),
-        ease: "none",
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const rows = gsap.utils.toArray<HTMLElement>(".sim-row");
+
+    rows.forEach((row) => {
+      const imgWrap  = row.querySelector<HTMLElement>(".sim-img-wrap");
+      const tag      = row.querySelector<HTMLElement>(".sim-tag");
+      const idNum    = row.querySelector<HTMLElement>(".sim-id");
+      const name     = row.querySelector<HTMLElement>(".sim-name");
+      const headline = row.querySelector<HTMLElement>(".sim-headline");
+      const desc     = row.querySelector<HTMLElement>(".sim-desc");
+      const features = row.querySelectorAll<HTMLElement>(".sim-feature");
+      const stats    = row.querySelectorAll<HTMLElement>(".sim-stat");
+      const btn      = row.querySelector<HTMLElement>(".sim-btn");
+
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: () => `+=${window.innerWidth * simulators.length}`, // length of 3 viewports for more scroll room
-          pin: true,
-          scrub: 1.2,
-          invalidateOnRefresh: true, 
-        }
+          trigger: row,
+          start: "top 70%",
+          toggleActions: "play none none none",
+        },
       });
 
-      // Subtle parallax effect on content inside horizontal scroll
-      const contents = gsap.utils.toArray<HTMLElement>('.sim-content');
-      contents.forEach((content) => {
-        gsap.fromTo(content, 
-          { x: 100, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: content.closest('.sim-item'),
-              containerAnimation: tween, // Ties this trigger to the horizontal tween
-              start: "left center",
-              end: "center center",
-              scrub: true,
-            }
-          }
-        );
-      });
+      // Image wipe-in
+      tl.fromTo(imgWrap,
+        { clipPath: "inset(0 100% 0 0 round 16px)", scale: 1.1 },
+        { clipPath: "inset(0 0% 0 0 round 16px)", scale: 1, duration: 1.1, ease: "expo.inOut" },
+        0
+      );
+
+      // Big ID number slams in
+      tl.fromTo(idNum,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "expo.out" },
+        0.1
+      );
+
+      // Tag slides in
+      tl.fromTo(tag,
+        { x: -30, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+        0.25
+      );
+
+      // Name crashes down
+      tl.fromTo(name,
+        { y: 80, opacity: 0, skewY: 4 },
+        { y: 0, opacity: 1, skewY: 0, duration: 0.75, ease: "expo.out" },
+        0.3
+      );
+
+      // Headline
+      tl.fromTo(headline,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+        0.45
+      );
+
+      // Desc
+      tl.fromTo(desc,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+        0.55
+      );
+
+      // Stats stagger
+      tl.fromTo(stats,
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.45, ease: "power3.out", stagger: 0.1 },
+        0.6
+      );
+
+      // Features stagger
+      tl.fromTo(features,
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)", stagger: 0.06 },
+        0.65
+      );
+
+      // Button pops in
+      tl.fromTo(btn,
+        { y: 20, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+        0.8
+      );
     });
 
-    // MOBILE: Vertical Scroll (max-width: 767px)
-    mm.add("(max-width: 767px)", () => {
-      // Natural vertical layout, but we'll add a nice fade-in as they scroll down
-      const items = gsap.utils.toArray<HTMLElement>('.sim-item');
-      items.forEach((item) => {
-        gsap.fromTo(item.querySelector('.sim-content'), 
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 75%", // Starts animating when the top of the item hits 75% down the viewport
-              toggleActions: "play none none reverse",
-            }
-          }
-        );
-      });
-    });
-
-    return () => mm.revert(); // Clean up matchMedia on unmount
-  }, { scope: containerRef });
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
 
   return (
-    // Outer container hides the overflow to prevent ugly scrollbars on desktop
-    <div ref={containerRef} className="relative w-full bg-black overflow-hidden" id="simulators">
-      
-      {/* Grid Overlay (Fixed visually across the whole section) */}
-      <div className="absolute inset-0 z-10 pointer-events-none border-x border-white/5 mx-auto max-w-7xl grid grid-cols-4 opacity-[0.03]">
-        {[...Array(3)].map((_, i) => (
-          <div key={i} className="border-r border-white/5 h-full" />
-        ))}
+    <section ref={sectionRef} id="simulators" className="w-full">
+
+      {/* Section intro — white */}
+      <div className="bg-white w-full px-6 sm:px-12 pt-24 pb-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-4 mb-4">
+            <span className="w-8 h-px bg-black" />
+            <span className="text-[11px] uppercase tracking-[0.4em] text-black">
+              Our Simulators
+            </span>
+          </div>
+          <h2 className="text-7xl sm:text-9xl uppercase tracking-tighter text-black leading-none">
+            The Bays
+          </h2>
+        </div>
       </div>
 
-      {/* The Track: 
-        Mobile -> flex-col, w-full
-        Desktop -> flex-row, explicit width for exact 3 items
-      */}
-      <div 
-        ref={trackRef} 
-        className="flex flex-col md:flex-row w-full md:w-[300vw] h-auto md:h-screen"
-      >
-        {simulators.map((sim, i) => (
-          <div 
-            key={sim.id} 
-            // Mobile -> min-h-[100svh], w-full
-            // Desktop -> h-screen, w-screen (takes up exactly 1 viewport width)
-            className="sim-item relative flex shrink-0 w-full md:w-screen min-h-[100svh] md:min-h-screen flex-col justify-center items-center px-4 overflow-hidden"
-          >
-            {/* Background Layer */}
-            <div className="sim-bg absolute inset-0 z-0">
-              {sim.videoSrc ? (
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover grayscale-[0.4]">
-                  <source src={sim.videoSrc} type="video/mp4" />
-                </video>
-              ) : (
-                <Image 
-                  src={sim.imgSrc} 
-                  alt={sim.name} 
-                  fill 
-                  className="object-cover grayscale-[0.4]"
-                  priority={i === 0}
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/95 md:bg-gradient-to-r md:from-black/90 md:via-black/20 md:to-black/90" />
-            </div>
+      {/* One full-width row per simulator */}
+      {simulators.map((sim, i) => {
+        const textColor = sim.dark ? "text-white" : "text-black";
+        const borderColor = sim.dark ? "border-white/20" : "border-black/20";
+        const isEven = i % 2 === 0;
 
-            {/* Content Layer */}
-            <div className="sim-content relative z-20 max-w-7xl w-full mx-auto px-6 sm:px-12 pointer-events-auto">
-              <div className="flex flex-col items-start gap-4">
-                 <div className="flex items-center gap-3">
-                    <span className="w-12 h-px bg-primary" />
-                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-primary drop-shadow-glow">
+        // Custom features pill colors as requested
+        let featureBgColor = "bg-white";
+        let featureTextColor = "text-black";
+        if (sim.id === "03") {
+          featureBgColor = "bg-black";
+          featureTextColor = "text-white";
+        }
+
+        return (
+          <div
+            key={sim.id}
+            className="sim-row w-full"
+            style={{ backgroundColor: sim.bg }}
+          >
+            <div className="max-w-7xl mx-auto px-6 sm:px-12 py-20 sm:py-28">
+              <div className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-12 md:gap-20 items-center`}>
+
+                {/* ── Image ── */}
+                <div
+                  className="sim-img-wrap w-full md:w-1/2 rounded-2xl overflow-hidden shrink-0"
+                  style={{ aspectRatio: "3/2" }}
+                >
+                  {sim.videoSrc ? (
+                    <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                      <source src={sim.videoSrc} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <Image
+                      src={sim.imgSrc}
+                      alt={sim.name}
+                      fill
+                      className="object-cover"
+                      priority={i === 0}
+                    />
+                  )}
+                </div>
+
+                {/* ── Text ── */}
+                <div className="flex flex-col gap-6 w-full md:w-1/2">
+
+                  {/* ID + Tag row */}
+                  <div className="flex items-center gap-4">
+                    <span
+                      className="sim-id text-8xl leading-none tracking-tighter select-none"
+                      style={{ color: sim.accent }}
+                    >
+                      {sim.id}
+                    </span>
+                    <span
+                      className="sim-tag text-[10px] uppercase tracking-[0.4em]"
+                      style={{ color: sim.accent }}
+                    >
                       {sim.tag}
                     </span>
-                 </div>
+                  </div>
 
-                 <TextAnimation>
-                   <h2 
-                     className="text-[14vw] sm:text-[11vw] font-black text-white leading-[0.8] tracking-tighter uppercase italic"
-                   >
-                     {sim.name}
-                   </h2>
-                 </TextAnimation>
+                  {/* Name */}
+                  <h3
+                    className={`sim-name text-5xl sm:text-6xl uppercase tracking-tighter leading-none ${textColor}`}
+                  >
+                    {sim.name}
+                  </h3>
 
-                 <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-5xl">
-                    <div className="flex flex-col gap-8">
-                      <TextAnimation>
-                        <p className="text-2xl sm:text-4xl font-black text-white leading-none tracking-tight">
-                          {sim.headline}
-                        </p>
-                      </TextAnimation>
-                      <p className="text-sm sm:text-base text-white/50 leading-relaxed max-w-sm font-medium">
-                        {sim.desc}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {sim.features.map((f, fi) => (
-                           <span key={fi} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[9px] font-black text-white/30 uppercase tracking-widest whitespace-nowrap">
-                             {f}
-                           </span>
-                        ))}
+                  {/* Headline */}
+                  <p
+                    className={`sim-headline text-xl tracking-tight ${textColor}`}
+                  >
+                    {sim.headline}
+                  </p>
+
+                  {/* Divider */}
+                  <div className={`w-full h-px ${sim.dark ? "bg-white/20" : "bg-black/15"}`} />
+
+                  {/* Desc */}
+                  <p className={`sim-desc text-base leading-relaxed ${textColor}`}>
+                    {sim.desc}
+                  </p>
+
+                  {/* Stats */}
+                  <div className="flex gap-10">
+                    {sim.stats.map((s, si) => (
+                      <div key={si} className="sim-stat flex flex-col gap-1">
+                        <span
+                          className="text-[9px] uppercase tracking-widest"
+                          style={{ color: sim.accent }}
+                        >
+                          {s.label}
+                        </span>
+                        <span className={`text-4xl tracking-tighter tabular-nums ${textColor}`}>
+                          {s.value}
+                        </span>
                       </div>
-                    </div>
+                    ))}
+                  </div>
 
-                    <div className="flex flex-col justify-end items-start md:items-end gap-10">
-                      <div className="flex gap-12 sm:gap-16">
-                         {sim.stats.map((s, si) => (
-                           <div key={si} className="flex flex-col gap-1">
-                             <span className="text-[9px] font-black text-primary/60 uppercase tracking-widest">{s.label}</span>
-                             <span className="text-4xl sm:text-5xl font-black text-white tracking-tighter tabular-nums">{s.value}</span>
-                           </div>
-                         ))}
-                      </div>
-                      
-                      <button className="group px-8 py-5 sm:px-10 sm:py-6 bg-white text-black font-black text-[10px] sm:text-[11px] uppercase tracking-[0.4em] rounded-full flex items-center gap-5 hover:bg-primary hover:text-white transition-all duration-700 shadow-2xl shadow-white/5">
-                        Reserve Session
-                        <MousePointer2 className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                      </button>
-                    </div>
-                 </div>
+                  {/* Features */}
+                  <div className="flex flex-wrap gap-2">
+                    {sim.features.map((f, fi) => (
+                      <span
+                        key={fi}
+                        className={`sim-feature px-3 py-1.5 rounded-full text-[9px] uppercase tracking-widest ${featureBgColor} ${featureTextColor}`}
+                      >
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <Link
+                    href="/rates"
+                    className="sim-btn self-start mt-2 px-8 py-4 text-[10px] uppercase tracking-[0.4em] rounded-full flex items-center gap-4 transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: sim.accent,
+                      color: sim.dark ? "#000" : "#fff",
+                    }}
+                  >
+                    Reserve Session
+                    <MousePointer2 className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+
               </div>
             </div>
-
-            {/* Background ID Overlay */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 select-none pointer-events-none opacity-[0.03]">
-               <span className="text-[45vw] md:text-[35vw] font-black text-white leading-none tracking-tighter">{sim.id}</span>
-            </div>
           </div>
-        ))}
-      </div>
-    </div>
+        );
+      })}
+    </section>
   );
 }

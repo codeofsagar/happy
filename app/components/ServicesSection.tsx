@@ -4,6 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 import {
   MonitorPlay,
   Mic2,
@@ -21,36 +22,40 @@ const servicesData = [
     title: "Golf Simulators",
     desc: "Expertly installed top-tier simulation technology for serious training, immersive play, and a premium indoor golf experience.",
     icon: <MonitorPlay className="h-5 w-5" />,
-    bgColor: "#ffffff",
+    bgColor: "#000000",
     image: "/assets/images/uneekor-interior.webp",
     tag: "Precision Setup",
+    dark: true,
   },
   {
     number: "02",
     title: "Karaoke Playable",
     desc: "Turn every session into a social moment with built-in karaoke entertainment while guests relax, wait, and enjoy the atmosphere.",
     icon: <Mic2 className="h-5 w-5" />,
-    bgColor: "#f8f9fa",
+    bgColor: "#22c55e",
     image: "/assets/images/uneekor-lifestyle.webp",
     tag: "Social Energy",
+    dark: false,
   },
   {
     number: "03",
     title: "1000+ Courses",
     desc: "Travel through iconic championship courses, dynamic ranges, and fun mini-golf environments without leaving the venue.",
     icon: <Map className="h-5 w-5" />,
-    bgColor: "#f1f3f5",
+    bgColor: "#ffffff",
     image: "/assets/images/uneekor-pebble-beach.webp",
     tag: "Global Play",
+    dark: false,
   },
   {
     number: "04",
     title: "Corporate & Social",
     desc: "Designed for team events, private celebrations, brand activations, and unforgettable group experiences.",
     icon: <CalendarRange className="h-5 w-5" />,
-    bgColor: "#e9ecef",
+    bgColor: "#000000",
     image: "/assets/images/fairwaylab-hero.jpg",
     tag: "Events Ready",
+    dark: true,
   },
 ];
 
@@ -241,7 +246,7 @@ export default function ServicesSection() {
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           {/* Left aligned title */}
           <TextAnimation>
-            <h2 className="text-balance text-4xl font-semibold leading-[0.95] tracking-[-0.05em] text-black sm:text-5xl md:text-6xl lg:text-7xl text-left">
+            <h2 className="text-balance text-4xl leading-[0.95] tracking-[-0.05em] text-black sm:text-5xl md:text-6xl lg:text-7xl text-left">
               Crafted for play,
               <br className="hidden sm:block" />
               built for impact.
@@ -249,9 +254,11 @@ export default function ServicesSection() {
           </TextAnimation>
 
           {/* Right aligned text */}
-          <p className="max-w-md text-sm leading-7 text-black sm:text-base md:text-lg text-left md:text-right">
-            From high-performance simulator bays to social-first entertainment, every detail is designed to feel elevated, immersive, and unforgettable.
-          </p>
+          <TextAnimation delay={0.1}>
+            <p className="max-w-md text-sm leading-7 text-black sm:text-base md:text-2xl text-left md:text-right">
+              From high-performance simulator bays to social-first entertainment, every detail is designed to feel elevated, immersive, and unforgettable.
+            </p>
+          </TextAnimation>
         </div>
       </div>
 
@@ -291,66 +298,72 @@ export default function ServicesSection() {
         </div>
 
         {/* The Cards themselves */}
-        {servicesData.map((service, i) => (
-          <div
-            key={i}
-            className="service-card absolute left-1/2 top-1/2 z-10 w-[94%] max-w-6xl overflow-hidden rounded-[1.5rem] border border-black/8 shadow-[0_18px_80px_rgba(0,0,0,0.10)] md:w-[92%] md:rounded-[2rem]"
-            style={{ backgroundColor: service.bgColor }}
-          >
-            <div className="grid min-h-[78svh] grid-cols-1 md:min-h-[70vh] lg:grid-cols-[1.02fr_0.98fr]">
-              <div className="relative flex flex-col justify-between p-5 sm:p-7 md:p-10 lg:p-12 xl:p-14">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.07),transparent_34%)]" />
+        {servicesData.map((service, i) => {
+          const textColor = service.dark ? "text-white" : "text-black";
+          const mutedTextColor = service.dark ? "text-white" : "text-black";
+          const faintTextColor = service.dark ? "text-white" : "text-black";
+          const iconColor = service.dark ? "text-green-400" : "text-green-700";
 
-                <div className="relative z-10 flex items-center justify-between gap-3">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/70 backdrop-blur-md sm:text-[11px]">
-                    <span className="text-green-700">{service.icon}</span>
-                    <span className="truncate">{service.tag}</span>
+          return (
+            <div
+              key={i}
+              className="service-card absolute left-1/2 top-1/2 z-10 w-[94%] max-w-6xl overflow-hidden rounded-[1.5rem] border border-black/8 shadow-[0_18px_80px_rgba(0,0,0,0.10)] md:w-[92%] md:rounded-[2rem]"
+              style={{ backgroundColor: service.bgColor }}
+            >
+              <div className="grid min-h-[78svh] grid-cols-1 md:min-h-[70vh] lg:grid-cols-[1.02fr_0.98fr]">
+                <div className="relative flex flex-col justify-between p-5 sm:p-7 md:p-10 lg:p-12 xl:p-14">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.07),transparent_34%)]" />
+
+                  <div className="relative z-10 flex items-center justify-between gap-3">
+                    <div className={`inline-flex items-center gap-2 rounded-full border ${service.dark ? "border-white/20 bg-black/50" : "border-black/8 bg-white/70"} px-3 py-2 text-[10px] uppercase tracking-[0.22em] ${mutedTextColor} backdrop-blur-md sm:text-[11px]`}>
+                      <span className={iconColor}>{service.icon}</span>
+                      <span className="truncate">{service.tag}</span>
+                    </div>
+
+                    <span className={`shrink-0 text-[11px] tracking-[0.26em] ${faintTextColor} sm:text-sm`}>
+                      {service.number}
+                    </span>
                   </div>
 
-                  <span className="shrink-0 text-[11px] font-medium tracking-[0.26em] text-black/30 sm:text-sm">
-                    {service.number}
-                  </span>
-                </div>
+                  <div className="relative z-10 my-8 md:my-10 lg:my-0">
+                    <p className={`mb-3 text-[10px] uppercase tracking-[0.3em] ${iconColor} sm:mb-4 sm:text-xs`}>
+                      Signature Service
+                    </p>
 
-                <div className="relative z-10 my-8 md:my-10 lg:my-0">
-                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-green-700 sm:mb-4 sm:text-xs">
-                    Signature Service
-                  </p>
-
-                  <TextAnimation>
-                    <h3 className="max-w-xl text-3xl font-semibold uppercase leading-[0.95] tracking-[-0.04em] text-black sm:text-4xl md:text-5xl lg:text-6xl">
-                      {service.title}
-                    </h3>
-                  </TextAnimation>
-
-                  <p className="mt-4 max-w-lg text-sm leading-6 text-black/65 sm:mt-5 sm:text-[15px] sm:leading-7 md:mt-6 md:text-lg">
-                    {service.desc}
-                  </p>
-                </div>
-
-                <div className="relative z-10 flex items-center gap-3 pt-5 md:pt-8">
-                  <div className="inline-flex items-center gap-2 text-sm font-medium text-black">
-                    Explore experience
-                    <ArrowUpRight className="h-4 w-4 text-green-700" />
+                    <TextAnimation>
+                      <h3 className={`max-w-xl text-3xl uppercase leading-[0.95] tracking-[-0.04em] ${textColor} sm:text-4xl md:text-5xl lg:text-6xl`}>
+                        {service.title}
+                      </h3>
+                      <p className={`mt-4 max-w-lg text-sm leading-6 ${mutedTextColor} sm:mt-5 sm:text-[15px] sm:leading-7 md:mt-6 md:text-lg`}>
+                        {service.desc}
+                      </p>
+                    </TextAnimation>
                   </div>
-                </div>
-              </div>
 
-              <div className="relative h-[240px] min-h-[240px] sm:h-[290px] sm:min-h-[290px] lg:h-auto">
-                <div className="absolute inset-0 z-10 bg-gradient-to-br from-black/5 via-transparent to-black/15" />
-                <div className="absolute left-4 top-4 z-20 rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white backdrop-blur sm:left-5 sm:top-5">
-                  Experience
+                  <Link href="/rates" className="relative z-10 flex items-center gap-3 pt-5 md:pt-8 group/ext">
+                    <div className={`inline-flex items-center gap-2 text-sm ${textColor} group-hover/ext:opacity-70 transition-opacity`}>
+                      Explore experience
+                      <ArrowUpRight className={`h-4 w-4 ${iconColor} group-hover/ext:translate-x-1 group-hover/ext:-translate-y-1 transition-transform`} />
+                    </div>
+                  </Link>
                 </div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="h-full w-full object-cover"
-                />
+
+                <div className="relative h-[240px] min-h-[240px] sm:h-[290px] sm:min-h-[290px] lg:h-auto">
+                  <div className="absolute inset-0 z-10 bg-gradient-to-br from-black/5 via-transparent to-black/15" />
+                  <div className="absolute left-4 top-4 z-20 rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-white backdrop-blur sm:left-5 sm:top-5">
+                    Experience
+                  </div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
