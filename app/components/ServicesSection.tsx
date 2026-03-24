@@ -141,9 +141,9 @@ export default function ServicesSection() {
         });
       });
 
-      // Initial background images setup
+      // Initial background images setup using autoAlpha instead of opacity
       bgImages.forEach((bg, i) => {
-        gsap.set(bg, { opacity: i === 0 ? 1 : 0 });
+        gsap.set(bg, { autoAlpha: i === 0 ? 1 : 0 });
       });
 
       let mm = gsap.matchMedia();
@@ -195,27 +195,31 @@ export default function ServicesSection() {
           let segProgress = (progress - activeIndex * segmentSize) / segmentSize;
           segProgress = Math.max(0, Math.min(segProgress, 1));
 
-          // Crossfade background images
+          // Crossfade background images using autoAlpha
           bgImages.forEach((img, i) => {
             if (i === activeIndex) {
-              gsap.set(img, { opacity: 1 - segProgress });
+              gsap.set(img, { autoAlpha: 1 - segProgress });
             } else if (i === activeIndex + 1) {
-              gsap.set(img, { opacity: segProgress });
+              gsap.set(img, { autoAlpha: segProgress });
             } else {
-              gsap.set(img, { opacity: 0 });
+              gsap.set(img, { autoAlpha: 0 });
             }
           });
 
           cards.forEach((card, i) => {
             if (i < activeIndex) {
-              gsap.set(card, { yPercent: -250, rotationX: 35, scale: 1 });
+              // Card is swiped away - hide it to save GPU memory
+              gsap.set(card, { yPercent: -250, rotationX: 35, scale: 1, autoAlpha: 0 });
             } else if (i === activeIndex) {
+              // Active card
               gsap.set(card, {
                 yPercent: gsap.utils.interpolate(-50, -250, segProgress),
                 rotationX: gsap.utils.interpolate(0, 35, segProgress),
                 scale: 1,
+                autoAlpha: 1,
               });
             } else {
+              // Cards waiting behind
               const behindIndex = i - activeIndex;
               const currentYOffset = (behindIndex - segProgress) * cardYOffset;
               const currentScale = 1 - (behindIndex - segProgress) * cardScaleStep;
@@ -224,6 +228,7 @@ export default function ServicesSection() {
                 yPercent: -50 + currentYOffset,
                 rotationX: 0,
                 scale: currentScale,
+                autoAlpha: 1,
               });
             }
           });
@@ -275,7 +280,9 @@ export default function ServicesSection() {
               key={`bg-${i}`}
               src={service.image}
               alt=""
-              className="bg-image-layer absolute inset-0 h-full w-full object-cover transition-none will-change-[opacity]"
+              className="bg-image-layer absolute inset-0 h-full w-full object-cover transition-none"
+              decoding="async"
+              loading={i === 0 ? "eager" : "lazy"}
             />
           ))}
           <div className="absolute inset-0 bg-black/40" />
